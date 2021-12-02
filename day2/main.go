@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"github.com/qkos/aoc-2021/pkg"
 	"strconv"
+	"strings"
 )
 
 const inputPart1 = "part1.in"
-const inputPart2 = "part2.in"
+const inputPart2 = "part1.in"
 
 func main() {
 	fmt.Printf("Part 1: %d\n", part1())
@@ -20,17 +21,30 @@ func part1() int {
 		panic(err)
 	}
 
+	var h, d int
 	for i, line := range lines {
-		num, err := strconv.Atoi(line)
+		parts := strings.Split(line, " ")
+		num, err := strconv.Atoi(parts[1])
+
 		if err != nil {
 			panic(fmt.Sprintf("line #%d is not a number [%s]", i, line))
 		}
 
-		// TODO: implement
-		_ = num
+		switch parts[0] {
+		case "forward":
+			h += num
+			break
+		case "down":
+			d += num
+			break
+		case "up":
+			d -= num
+			break
+		}
+
 	}
 
-	return 0
+	return h*d
 }
 
 func part2() int {
@@ -39,15 +53,29 @@ func part2() int {
 		panic(err)
 	}
 
+	var a, h, d int
 	for i, line := range lines {
-		num, err := strconv.Atoi(line)
+		parts := strings.Split(line, " ")
+		num, err := strconv.Atoi(parts[1])
+
 		if err != nil {
 			panic(fmt.Sprintf("line #%d is not a number [%s]", i, line))
 		}
 
-		// TODO: implement
-		_ = num
+		switch parts[0] {
+		case "forward":
+			h += num
+			d += a * num
+			break
+		case "down":
+			a += num
+			break
+		case "up":
+			a -= num
+			break
+		}
+
 	}
 
-	return 0
+	return h*d
 }
